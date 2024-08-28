@@ -7,6 +7,7 @@ export const getProducts = async () => {
 
   return data;
 };
+
 export const createProduct = async (productData: any) => {
   const res = await fetch("http://localhost:4000/api/products", {
     method: "POST",
@@ -17,6 +18,15 @@ export const createProduct = async (productData: any) => {
   });
 
   const data = await res.json();
+};
 
-  console.log(data);
+export const deleteProduct = async (id: number) => {
+  const res = await fetch(`http://localhost:4000/api/products/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  return await res.json();
 };
