@@ -10,6 +10,7 @@ export const getProducts = async () => {
 
 export const getProduct = async (id: string) => {
   const res = await fetch(`http://localhost:4000/api/products/${id}`, {
+    cache: "no-store",
     headers: {
       "Content-Type": "application/json",
     },
@@ -39,6 +40,7 @@ export const updateProduct = async (id: string, productData: any) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(productData),
+    cache: "no-store",
   });
 
   const data = await res.json();
