@@ -1,3 +1,12 @@
+export const getProducts = async () => {
+  const res = await fetch("http://localhost:4000/api/products", {
+    cache: "no-store",
+  });
+
+  const data = await res.json();
+
+  return data;
+};
 export const createProduct = async (productData: any) => {
   const res = await fetch("http://localhost:4000/api/products", {
     method: "POST",
