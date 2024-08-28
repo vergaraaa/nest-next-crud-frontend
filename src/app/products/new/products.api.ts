@@ -9,7 +9,6 @@ export const getProducts = async () => {
 };
 
 export const getProduct = async (id: string) => {
-  console.log(id);
   const res = await fetch(`http://localhost:4000/api/products/${id}`, {
     headers: {
       "Content-Type": "application/json",
@@ -31,6 +30,20 @@ export const createProduct = async (productData: any) => {
   });
 
   const data = await res.json();
+};
+
+export const updateProduct = async (id: string, productData: any) => {
+  const res = await fetch(`http://localhost:4000/api/products/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(productData),
+  });
+
+  const data = await res.json();
+
+  return data;
 };
 
 export const deleteProduct = async (id: number) => {

@@ -4,15 +4,30 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
-import { createProduct } from "./products.api";
-import { useRouter } from "next/navigation";
+import { createProduct, updateProduct } from "./products.api";
+import { useParams, useRouter } from "next/navigation";
 
-const ProductForm = () => {
+interface Props {
+  product: any;
+}
+
+const ProductForm = ({ product }: Props) => {
   const router = useRouter();
-  const { register, handleSubmit } = useForm();
+  const params = useParams<{ id: string }>();
+
+  const { register, handleSubmit } = useForm({
+    defaultValues: { ...product },
+  });
 
   const onSubmit = handleSubmit(async (data) => {
-    await createProduct({ ...data, price: parseFloat(data.price) });
+    if (params.id) {
+      await updateProduct(params.id, {
+        ...data,
+        price: parseFloat(data.price),
+      });
+    } else {
+      await createProduct({ ...data, price: parseFloat(data.price) });
+    }
 
     router.push("/");
     router.refresh();
@@ -32,7 +47,7 @@ const ProductForm = () => {
       <Label>Image</Label>
       <Input {...register("image")} />
 
-      <Button className="mt-5">Create Product</Button>
+      <Button className="mt-5">{params.id ? "Edit" : "Create Product"}</Button>
     </form>
   );
 };

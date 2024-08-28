@@ -24,26 +24,41 @@ const ProductCard = ({ product }: Props) => {
   };
 
   return (
-    <Card
-      key={product.id}
-      onClick={() => router.push(`/products/${product.id}`)}
-    >
+    <Card key={product.id}>
       <CardHeader>
         <CardTitle className="flex justify-between">
-          {product.name}
+          <span
+            className="cursor-pointer"
+            onClick={() => router.push(`/products/${product.id}`)}
+          >
+            {product.name}
+          </span>
+
           <span className="text-sm font-bold text-gray-500">
             ${product.price}
           </span>
         </CardTitle>
       </CardHeader>
 
-      <img src={product.image} alt="" />
+      <img
+        className="cursor-pointer"
+        src={product.image}
+        onClick={() => router.push(`/products/${product.id}`)}
+      />
 
       <CardContent>
         <p>{product.description}</p>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button>Buy</Button>
+        <Button
+          onClick={(e) => {
+            e.stopPropagation();
+            router.push(`/products/${product.id}/edit`);
+          }}
+        >
+          Edit
+        </Button>
+
         <Button
           variant="destructive"
           onClick={() => handleRemoveProduct(product.id)}
