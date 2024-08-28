@@ -24,7 +24,10 @@ const ProductCard = ({ product }: Props) => {
   };
 
   return (
-    <Card key={product.id}>
+    <Card
+      key={product.id}
+      onClick={() => router.push(`/products/${product.id}`)}
+    >
       <CardHeader>
         <CardTitle className="flex justify-between">
           {product.name}

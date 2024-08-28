@@ -8,6 +8,19 @@ export const getProducts = async () => {
   return data;
 };
 
+export const getProduct = async (id: string) => {
+  console.log(id);
+  const res = await fetch(`http://localhost:4000/api/products/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await res.json();
+
+  return data;
+};
+
 export const createProduct = async (productData: any) => {
   const res = await fetch("http://localhost:4000/api/products", {
     method: "POST",
